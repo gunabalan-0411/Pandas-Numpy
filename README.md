@@ -60,3 +60,19 @@ code to rename column while grouping
 ```python
 .min().rename('first_year').reset_index()
 ```
+
+## Pivot
+
+code to rename column while grouping
+```python
+    months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+    df = department.pivot_table(
+        index = 'id',
+        columns = 'month',
+        values = 'revenue',
+        aggfunc = 'sum'
+    )
+    df = df.reindex(columns = months)
+    df.columns = [f'{col}_Revenue' for col in months]
+    return df.reset_index()
+```
