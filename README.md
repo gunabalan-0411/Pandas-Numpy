@@ -3,7 +3,7 @@
 ## Grouping
 
 ### Group By Function using agg (efficient)
-
+we can also use lambda x: func(x) for custom aggregation function
 ```python
 def monthly_transactions(transactions: pd.DataFrame) -> pd.DataFrame:
     transactions['month'] = transactions['trans_date'].dt.strftime('%Y-%m')
