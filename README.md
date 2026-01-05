@@ -2,7 +2,27 @@
 
 ## Grouping
 
-### Group By Function
+### Group By Function using agg (efficient)
+
+```python
+def monthly_transactions(transactions: pd.DataFrame) -> pd.DataFrame:
+    transactions['month'] = transactions['trans_date'].dt.strftime('%Y-%m')
+    transactions['approved_amount'] = transactions['amount'].where(
+        transactions['state'] == 'approved', 0
+    )
+    transactions['approved_flag'] = (transactions['state'] == 'approved').astype(int)
+    
+    return (transactions.groupby(
+        ['month', 'country'], dropna=False, as_index=False
+    ).agg(
+        trans_count = ('id','count'),
+        approved_count = ('approved_flag', 'sum'),
+        trans_total_amount = ('amount', 'sum'),
+        approved_total_amount = ('approved_amount', 'sum')
+    ))
+```
+
+### Group By Function using apply (inefficient)
 
 * Use apply for custom group by calculation for better code readability
 * Return pd.Series
