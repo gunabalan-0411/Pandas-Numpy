@@ -1,5 +1,11 @@
 # Pandas
 
+## Inbuilt
+
+```python
+queue['weight_so_far'] = queue['weight'].cumsum()
+```
+
 ## Grouping
 
 ### Group By Function using agg (efficient)
